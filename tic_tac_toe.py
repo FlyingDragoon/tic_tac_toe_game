@@ -143,7 +143,7 @@ save this via git
 read full-walk-through
     -features to add
         -lets player decide the mark type s/he wants to select
-        -determine which player wants to move first
+        -determine which player wants to move first (using random module)
         -check if the board already has mark placed        
         -check if the board is full
         -adding replay feature (i.e., can replay the entire game)
