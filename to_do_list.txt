@@ -1,0 +1,6 @@
+to do:
+- look at objects hw/assignment
+- look at try and exception hw/assignment
+- keep working on milestone project 1
+
+- vim
