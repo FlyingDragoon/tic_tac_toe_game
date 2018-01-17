@@ -6,6 +6,7 @@ This is a temporary script file.
 """
 
 import os
+import random
 #os.getcwd()
 
 path = '/Users/yabinwang/Desktop/py_dir/'
@@ -62,11 +63,43 @@ def print_grid(grid):
 
 # test
 #print_grid(grid)
+    
+# step 1.2: decide turn and mark type
+def decide_turn(): #decide turn randomly
+    if bool(random.getrandbits(1)):
+        turn = 1
+        print 'player 1 moves first'
+    else:
+        turn = 2
+        print 'player 2 moves first'
+    return(turn)
+
+def decide_mark_type(): #decide mark type randomly
+    if bool(random.getrandbits(1)):
+        mark_type = 'X'
+    else:
+        mark_type = 'O'
+    return mark_type
 
 # step 2: place a mark
 def place_mark(row_num, col_num, mark_type, grid):
     grid[row_num - 1][col_num - 1] = mark_type
     return(grid)
+
+# step 2, add.1: check if the board is full
+def check_full(grid):
+    indicator = grid[0].count(" ") + grid[1].count(" ") + grid[2].count(" ")
+    if indicator == 0:
+        return True
+    else:
+        return False
+# step 2, add.2: check if the mark placed already has a mark there
+def check_if_marked(row_num, col_num):
+    if grid[row_num-1][col_num-1] != " ":
+        return True
+    else:
+        return False
+    
 
 # test
 #grid_test_1 = place_mark(1,1,'*',grid)
@@ -107,34 +140,38 @@ def check_win(grid):
         return(False)
     
 # below is main function which begins the game
-def main(grid):
+# [ch!!!]add added items to main function 
+def main(grid, replay=True):
     '''
     this is the main function that starts the game
     '''
-    i = 1
-    total_moves = len(grid) * len(grid[0])
-    for i in range(1, total_moves+1):
-        print '\nmove %1.0f by player %1.0f' %(i, (i - 1) % 2 + 1)
-        # change to be interactive input
-        mark_row = int(raw_input('input your mark row: '))
-        mark_col = int(raw_input('input your mark col: '))
-        if i % 2 == 0:
-            mark_type = '*'
-        else:
-            mark_type = '#'
-        
-        grid = place_mark(mark_row,mark_col,mark_type,grid)        
-        print_grid(grid)    
-        
-        if check_win(grid):
-            print 'you win! gg!'
-            break
-        elif i == total_moves:    
-            print 'it\'s a tie!'
-        else:
-            pass
-        
-        i += 1
+    while replay:        
+        i = 1
+        total_moves = len(grid) * len(grid[0])
+        for i in range(1, total_moves+1):
+            print '\nmove %1.0f by player %1.0f' %(i, (i - 1) % 2 + 1)
+            # change to be interactive input
+            mark_row = int(raw_input('input your mark row: '))
+            mark_col = int(raw_input('input your mark col: '))
+            if i % 2 == 0:
+                mark_type = '*'
+            else:
+                mark_type = '#'
+            
+            grid = place_mark(mark_row,mark_col,mark_type,grid)        
+            print_grid(grid)    
+            
+            if check_win(grid):
+                print 'you win! gg!'
+                break
+                replay = bool(raw_input('Replay? True/False '))
+            elif i == total_moves:    
+                print 'it\'s a tie!'
+                replay = bool(raw_input('Replay? True/False '))
+            else:
+                pass
+            
+            i += 1
     return()
 
 '''
