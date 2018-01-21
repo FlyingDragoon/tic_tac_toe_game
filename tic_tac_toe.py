@@ -1,44 +1,18 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
+# configuration
 
-This is a temporary script file.
-"""
-
-import os
 import random
-#os.getcwd()
-
-path = '/Users/yabinwang/Desktop/py_dir/'
-os.chdir(path)
-#print os.getcwd()
 
 '''
-rules of tic tac toe
+rules of tic tac toe:
+- the games happens on a 3*3 grid
+- players take turns placing mark on the grid
+- each player can ohly place one mark in each turn
+- whoever has three marks horizontally, vertically, or diagnolly wins 
 
-the games happens on a 3*3 grid
-players take turns placing mark on the grid
-each player can ohly place one mark in each turn
-whoever has three marks horizontally, vertically, or diagnolly wins 
-'''
-
-'''
 some other requirements:
-
-2 players should be able to play the game (both sitting at the same computer)
-The board should be printed out every time a player makes a move
-You should be able to accept input of the player position and then place a symbol on the board
-'''
-
-'''
-step 1: get a grid
-grid -> list of list
-
-step 2: place mark
-two numeric inputs can determine mark in grid
-
-step 3: dertermine winning side
-compile all cases of winning mark positions; if is in one of these, then win
+- 2 players should be able to play the game (both sitting at the same computer)
+- The board should be printed out every time a player makes a move
+- You should be able to accept input of the player position and then place a symbol on the board
 '''
 
 # step 1: create a grid
@@ -200,20 +174,5 @@ def main(grid, replay='Y'):
         
     return()
 
+# run the game
 main(grid)
-
-'''
-save this via git
-read full-walk-through
-    -features to add (done)
-        -lets player decide the mark type s/he wants to select (tested)
-        -determine which player wants to move first (using random module) (tested)
-        -check if the board already has mark placed (tested)       
-        -check if the board is full (tested)
-        -adding replay feature (i.e., can replay the entire game) (tested)
-    
-    -add players' name
-    -add clean out screen
-    -limit input range  
-    -whether or not need check_full
-'''
