@@ -68,10 +68,8 @@ def print_grid(grid):
 def decide_turn(): #decide turn randomly
     if bool(random.getrandbits(1)):
         turn = 1
-        print 'player 1 moves first'
     else:
         turn = 2
-        print 'player 2 moves first'
     return(turn)
 
 def decide_mark_type(): #decide mark type randomly
@@ -140,49 +138,82 @@ def check_win(grid):
         return(False)
     
 # below is main function which begins the game
-# [ch!!!]add added items to main function 
-def main(grid, replay=True):
+# add added items to main function 
+def main(grid, replay='Y'):
     '''
     this is the main function that starts the game
     '''
-    while replay:        
+    while replay == 'Y':     
         i = 1
         total_moves = len(grid) * len(grid[0])
+        # decide turn: player 1 or 2 to move first
+        first_player = decide_turn()
+        print 'player %1.0f moves first' %(first_player)
+        # decide mark type for the first player
+        mark_type_1 = decide_mark_type()
+        if mark_type_1 == 'X':
+            mark_type_2 = 'O'
+        elif mark_type_1 == 'O':
+            mark_type_2 = 'X'
+        else:
+            pass
+        print 'mark type for player %1.0f is %s, for player %1.0f is %s' %(first_player, mark_type_1, 3-first_player, mark_type_2)     
+       
         for i in range(1, total_moves+1):
-            print '\nmove %1.0f by player %1.0f' %(i, (i - 1) % 2 + 1)
+            print '\nmove %1.0f' %(i)
+            
+            # check if the board is full
+            if check_full(grid):
+                print 'board is full'
+                replay = bool(raw_input('Replay? True/False '))
+                break
+            
             # change to be interactive input
             mark_row = int(raw_input('input your mark row: '))
             mark_col = int(raw_input('input your mark col: '))
-            if i % 2 == 0:
-                mark_type = '*'
-            else:
-                mark_type = '#'
             
+            # check if the position has already been marked
+            while check_if_marked(mark_row, mark_col):
+                print 'the position you selected is already marked'
+                mark_row = int(raw_input('input your mark row: '))
+                mark_col = int(raw_input('input your mark col: '))
+            
+            if i % 2 == 1: # first move player's turn
+                mark_type = mark_type_1
+            elif i % 2 == 0: # second move player's turn
+                mark_type = mark_type_2
+                
             grid = place_mark(mark_row,mark_col,mark_type,grid)        
             print_grid(grid)    
             
             if check_win(grid):
                 print 'you win! gg!'
                 break
-                replay = bool(raw_input('Replay? True/False '))
             elif i == total_moves:    
                 print 'it\'s a tie!'
-                replay = bool(raw_input('Replay? True/False '))
+                break
             else:
                 pass
-            
             i += 1
+            
+        replay = raw_input('Replay? Y/N ')
+        
     return()
 
+main(grid)
+
 '''
-[CH!!!] 
 save this via git
 read full-walk-through
-    -features to add
-        -lets player decide the mark type s/he wants to select
-        -determine which player wants to move first (using random module)
-        -check if the board already has mark placed        
-        -check if the board is full
-        -adding replay feature (i.e., can replay the entire game)
-        
+    -features to add (done)
+        -lets player decide the mark type s/he wants to select (tested)
+        -determine which player wants to move first (using random module) (tested)
+        -check if the board already has mark placed (tested)       
+        -check if the board is full (tested)
+        -adding replay feature (i.e., can replay the entire game) (tested)
+    
+    -add players' name
+    -add clean out screen
+    -limit input range  
+    -whether or not need check_full
 '''
