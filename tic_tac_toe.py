@@ -1,6 +1,7 @@
 # configuration
 
 import random
+import os
 
 '''
 rules of tic tac toe:
@@ -14,6 +15,12 @@ some other requirements:
 - The board should be printed out every time a player makes a move
 - You should be able to accept input of the player position and then place a symbol on the board
 '''
+# create a utility function
+# clear screen when run on terminal
+def clear():
+    tmp_var = os.system('clear')
+    tmp_var = tmp_var
+    return()
 
 # step 1: create a grid
 grid = [ [" "," "," "]
@@ -25,6 +32,7 @@ def print_grid(grid):
     '''
     print out the game board
     '''
+    clear()
     i = 0
     for row in grid:
         #print '\n'
