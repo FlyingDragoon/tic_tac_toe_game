@@ -150,15 +150,22 @@ def main(grid, replay='Y'):
                 replay = bool(raw_input('Replay? True/False '))
                 break
             
-            # change to be interactive input
-            mark_row = int(raw_input('input your mark row: '))
-            mark_col = int(raw_input('input your mark col: '))
-            
-            # check if the position has already been marked
-            while check_if_marked(mark_row, mark_col):
-                print 'the position you selected is already marked'
-                mark_row = int(raw_input('input your mark row: '))
-                mark_col = int(raw_input('input your mark col: '))
+            # acceipt interactive input, with a few checks reinforced
+            while True:
+                try:
+                    mark_row = int(raw_input('input your mark row: '))
+                    mark_col = int(raw_input('input your mark col: '))
+                    if mark_row > 3 or mark_col > 3: # check if inputs are within range
+                        print 'row/column number cannot be greater than 3, please try again'
+                        continue
+                    if check_if_marked(mark_row, mark_col): # check if the position has already been marked
+                        print 'the position you selected is already marked, please try again'
+                        continue
+                except:
+                    print 'an error occured; please try again'
+                    continue
+                else:
+                    break
             
             if i % 2 == 1: # first move player's turn
                 mark_type = mark_type_1
